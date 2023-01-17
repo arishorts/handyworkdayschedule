@@ -1,0 +1,82 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+header {
+  text-align: center;
+}
+
+header:after {
+  content: "";
+  display: block;
+  width: 100vw;
+  height: 1rem;
+  margin-top: 5px;
+  background-color: black;
+}
+
+.schedule__block {
+  font-size: 2rem;
+  width: 100vw;
+  display: flex;
+  margin: 0.2rem 1rem;
+  height: 10vh;
+  padding: 0.05rem;
+  position: relative;
+}
+
+.schedule__block .block__hour {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: dashed;
+}
+
+.schedule__block textarea {
+  padding: 0.5rem;
+  width: 80%;
+  resize: none;
+  display: flex;
+  background-color: #00c317;
+}
+
+.schedule__block textarea:active,
+.schedule__block textarea:focus {
+  outline: 2px solid #ff0000;
+}
+
+.schedule__block a {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: dodgerblue;
+}

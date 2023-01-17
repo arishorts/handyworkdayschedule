@@ -73,6 +73,7 @@ header:after {
   resize: none;
   display: flex;
   background-color: #00c317;
+  cursor: pointer;
 }
 
 .schedule__block textarea:active,
@@ -86,4 +87,5 @@ header:after {
   justify-content: center;
   align-items: center;
   background-color: dodgerblue;
+  cursor: pointer;
 }

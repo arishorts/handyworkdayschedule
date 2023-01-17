@@ -43,13 +43,68 @@ $(document).ready(function () {
 
 //find the time of day
 $(function () {
+  // dayjs($("9 AM", "h A").isBefore(dayjs()));
+
+  // console.log(dayjs($("3 PM", "h A"), "h A").isBefore(dayjs()));
   const now = dayjs();
-  let specifiedText = now.format("h A");
-  let divs = $(".block__hour");
-  let matchingDivs = divs.filter(function () {
-    return $(this).text() === specifiedText;
+  let time1 = dayjs("2023-01-17T13:00:00"); // 1 PM
+  let time2 = dayjs("2023-01-17T19 PM"); // 3 PM
+  // console.log(now.isBefore(time2));
+
+  // console.log(now.isBefore(dayjs("2023-01-17T12 PM")));
+  let nowText = now.format("h A");
+  let timeDivs = $(".block__hour");
+  let nowEl = timeDivs.filter(function () {
+    return $(this).text() === nowText;
   });
-  matchingDivs.parent().find("textarea").css({ "background-color": "grey" });
+  nowEl
+    .parent()
+    .find("textarea")
+    .css({ "background-color": "grey", "z-index": "0", cursor: "pointer" });
+  //bugfix: pointer disappears
+  //find earlier times of the day
+  // let ealierEl = timeDivs.filter(function () {
+  //   let divTime = dayjs($(this).text(), "h A");
+  //   return divTime.isBefore(now);
+  // });
+  // ealierEl
+  //   .parent()
+  //   .find("textarea")
+  //   .css({ "background-color": "red", "z-index": "0", cursor: "pointer" });
+
+  var $previousCousins = nowEl.parent().prevAll("div").find("textarea");
+  $previousCousins.css({
+    "background-color": "red",
+    "z-index": "0",
+    cursor: "pointer",
+  });
+  // $(".block__hour:last").each(function () {
+  //   const input = "5 PM";
+  //   console.log(input);
+  //   const output = dayjs(input, "h A").format("YYYY-MM-DD HH:mm");
+  //   console.log(output); // '2023-01-17 09:00'
+  //   var nowtext = dayjs().format("YYYY-MM-DDTh A");
+  //   // console.log(dayjs(nowtext, "YYYY-MM-DDTh A"));
+  //   var text = dayjs().format("YYYY-MM-DDT") + $(this).text();
+  //   // console.log(text);
+  //   var newdate = text.format;
+  //   let diff = dayjs(nowtext).diff(dayjs(text));
+  //   // console.log(diff);
+
+  //   let time1 = dayjs("2022-01-01T12:00:00");
+  //   console.log(time1);
+  //   let time2 = dayjs("2022-01-01T18:00:00");
+  //   let diffInMinutes = time1.diff(time2, "hours");
+  //   console.log(diffInMinutes);
+
+  //   if (diff > 0) {
+  //     console.log("time in element is earlier than now");
+  //   } else if (diff < 0) {
+  //     console.log("time in element is later than now");
+  //   } else {
+  //     console.log("time in element is equal to now");
+  //   }
+  // });
 });
 
 $(function () {

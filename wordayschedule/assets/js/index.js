@@ -53,7 +53,7 @@ function setVisualIndicator() {
     //chore: add a set of code that when time is after 6Pm then make all divs red
     //bugfix : need advanced format plugin to add ordinal
     //https://day.js.org/docs/en/plugin/advanced-format
-    const headerNow = dayjs().format("dddd, MMM Do YYYY");
+    const headerNow = dayjs().format("dddd, MMM D YYYY");
     $("h2:last").text(headerNow);
     const now = dayjs();
     let nowText = now.format("h A");

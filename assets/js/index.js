@@ -1,7 +1,7 @@
 //https://stackoverflow.com/questions/61339968/error-message-devtools-failed-to-load-sourcemap-could-not-load-content-for-chr
 //https://www.udemy.com/course/jquery-tutorial/learn/lecture/4968932#notes
 //https://day.js.org/en/
-var parseSchedule = {};
+// var parseSchedule = {};
 var obj = {
   "9 AM": "",
   "10 AM": "",
@@ -22,7 +22,7 @@ function init() {
 
 //parse object from localstorage with included verification step
 function getStoredSchedule() {
-  var jsonString = localStorage.getItem("storageSchedule");
+  var jsonString = localStorage.getItem("storageSchedule") || {}; //added this last part here.
   if (jsonString) {
     parseSchedule = JSON.parse(jsonString);
     //set obj equal to all key-value pairs in the parsed schedule
@@ -64,13 +64,20 @@ function setVisualIndicator() {
     nowEl
       .parent()
       .find("textarea")
-      .css({ "background-color": "grey", "z-index": "0", cursor: "pointer" });
+      .css({ "background-color": "red", "z-index": "0", cursor: "pointer" });
     var $previousCousins = nowEl.parent().prevAll("div").find("textarea");
     $previousCousins.css({
-      "background-color": "red",
+      "background-color": "grey",
       "z-index": "0",
       cursor: "pointer",
     });
+    if (nowText.split(" ")[0] > 5 && nowText.split(" ")[1] == "PM") {
+      $("textarea").css({
+        "background-color": "grey",
+        "z-index": "0",
+        cursor: "pointer",
+      });
+    }
   });
 }
 
@@ -79,7 +86,6 @@ function showLocalStorageUpdate() {
   setTimeout(function () {
     $(".localStorageUpdate").stop().css({ visibility: "hidden" });
   }, 1000);
-  console.log("hello");
 }
 
 $(function () {

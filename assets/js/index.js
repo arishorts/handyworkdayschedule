@@ -1,7 +1,7 @@
 //https://stackoverflow.com/questions/61339968/error-message-devtools-failed-to-load-sourcemap-could-not-load-content-for-chr
 //https://www.udemy.com/course/jquery-tutorial/learn/lecture/4968932#notes
 //https://day.js.org/en/
-// var parseSchedule = {};
+var parseSchedule = {};
 var obj = {
   "9 AM": "",
   "10 AM": "",
@@ -22,13 +22,15 @@ function init() {
 
 //parse object from localstorage with included verification step
 function getStoredSchedule() {
-  var jsonString = localStorage.getItem("storageSchedule") || {}; //added this last part here.
-  if (jsonString) {
-    parseSchedule = JSON.parse(jsonString);
-    //set obj equal to all key-value pairs in the parsed schedule
-    obj = parseSchedule;
-  } else {
-    console.log("myVariable is undefined");
+  try {
+    var jsonString = localStorage.getItem("storageSchedule");
+    if (jsonString) {
+      parseSchedule = JSON.parse(jsonString);
+      //set obj equal to all key-value pairs in the parsed schedule
+      obj = parseSchedule;
+    }
+  } catch (error) {
+    console.error("Error parsing stored schedule:", error);
   }
 }
 
@@ -50,8 +52,7 @@ function setStoredSchedule() {
 
 function setVisualIndicator() {
   $(function () {
-    //chore: add a set of code that when time is after 6Pm then make all divs red
-    //bugfix : need advanced format plugin to add ordinal
+    //chore: add a set of code that when time is after 6Pm then make all divs grey
     //https://day.js.org/docs/en/plugin/advanced-format
     const headerNow = dayjs().format("dddd, MMM Do YYYY");
     $("h2:last").text(headerNow);
@@ -61,16 +62,19 @@ function setVisualIndicator() {
     let nowEl = timeDivs.filter(function () {
       return $(this).text() === nowText;
     });
+    //sets the textbox for the current time of day to red
     nowEl
       .parent()
       .find("textarea")
       .css({ "background-color": "red", "z-index": "0", cursor: "pointer" });
+    //all previous textboxes are set to grey
     var $previousCousins = nowEl.parent().prevAll("div").find("textarea");
     $previousCousins.css({
       "background-color": "grey",
       "z-index": "0",
       cursor: "pointer",
     });
+    //if the time of day is passed 5 then all boxes will remain grey until the day resets
     if (nowText.split(" ")[0] > 5 && nowText.split(" ")[1] == "PM") {
       $("textarea").css({
         "background-color": "grey",
@@ -81,6 +85,7 @@ function setVisualIndicator() {
   });
 }
 
+//displays a message at the top of the screen when the user updates the localstorage with the save button
 function showLocalStorageUpdate() {
   $(".localStorageUpdate").css({ visibility: "visible" });
   setTimeout(function () {
